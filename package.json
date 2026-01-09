@@ -1,0 +1,25 @@
+{
+  "name": "monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build:packages": "npm run build --workspace=packages/crypto && npm run build --workspace=packages/shared-types",
+    "build": "npm run build:packages && npm run build --workspaces --if-present",
+    "cloud-api:dev": "npm run dev --workspace=apps/cloud-api",
+    "local-api:dev": "npm run dev --workspace=apps/local-api",
+    "cloud-api:start": "npm run start --workspace=apps/cloud-api",
+    "local-api:start": "npm run start --workspace=apps/local-api",
+    "setup": "npm run setup:cloud-api && npm run setup:local-api",
+    "setup:cloud-api": "cd apps/cloud-api && npx prisma generate && npx prisma migrate dev --name init",
+    "setup:local-api": "cd apps/local-api && npx prisma generate && npx prisma migrate dev --name init",
+    "postinstall": "npm run build:packages"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3"
+  }
+}
