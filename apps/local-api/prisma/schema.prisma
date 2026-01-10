@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
+  output   = "../../../node_modules/.prisma/local-client"
 }
 
 datasource db {
@@ -19,13 +19,13 @@ model Server {
 }
 
 model Tablet {
-  id                String   @id @default(cuid())
-  name              String
-  tabletId          String   @unique
-  publicKey         String?
-  activationCodeHash String?
+  id                      String    @id @default(cuid())
+  name                    String
+  tabletId                String    @unique
+  publicKey               String?
+  activationCodeHash      String?
   activationCodeExpiresAt DateTime?
-  isActivated       Boolean  @default(false)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  isActivated             Boolean   @default(false)
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
 }

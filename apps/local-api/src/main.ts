@@ -15,11 +15,23 @@ async function bootstrap() {
     .addTag('setup', 'Local API setup and activation')
     .addTag('tablets', 'Tablet management endpoints')
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  
+  // ✅ Добавьте настройки для статических файлов
+  SwaggerModule.setup('docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customCssUrl: 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css',
+    customJs: [
+      'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js',
+      'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-standalone-preset.js',
+    ],
+  });
 
   await app.listen(3001);
   console.log('Local API is running on http://localhost:3001');
-  console.log('Swagger documentation available at http://localhost:3001/api/docs');
+  console.log('Swagger documentation available at http://localhost:3001/docs');
 }
 bootstrap();

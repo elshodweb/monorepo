@@ -1,13 +1,18 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateTabletDto, ActivateTabletDto } from '@monorepo/shared-types';
-import { CryptoService } from '@monorepo/crypto';
-import { v4 as uuidv4 } from 'uuid';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateTabletDto, ActivateTabletDto } from "@monorepo/shared-types";
+import { CryptoService } from "@monorepo/crypto";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class TabletsService {
   constructor(private prisma: PrismaService) {}
 
+  
   async create(createTabletDto: CreateTabletDto) {
     const activationCode = CryptoService.generateOTP(8);
     const activationCodeHash = CryptoService.hashSecret(activationCode);
@@ -29,7 +34,7 @@ export class TabletsService {
       name: tablet.name,
       activation_code: activationCode,
       expires_at: expiresAt.toISOString(),
-      message: 'Tablet created. Activation code expires in 10 minutes.',
+      message: "Tablet created. Activation code expires in 10 minutes.",
     };
   }
 
@@ -45,11 +50,16 @@ export class TabletsService {
     });
 
     if (!tablet) {
-      throw new UnauthorizedException('Invalid activation code or tablet already activated');
+      throw new UnauthorizedException(
+        "Invalid activation code or tablet already activated"
+      );
     }
 
-    if (!tablet.activationCodeExpiresAt || tablet.activationCodeExpiresAt < now) {
-      throw new UnauthorizedException('Activation code has expired');
+    if (
+      !tablet.activationCodeExpiresAt ||
+      tablet.activationCodeExpiresAt < now
+    ) {
+      throw new UnauthorizedException("Activation code has expired");
     }
 
     const updated = await this.prisma.tablet.update({
@@ -64,7 +74,7 @@ export class TabletsService {
 
     return {
       tablet_id: updated.tabletId,
-      message: 'Tablet activated successfully',
+      message: "Tablet activated successfully",
     };
   }
 
@@ -93,7 +103,7 @@ export class TabletsService {
     });
 
     if (!tablet) {
-      throw new NotFoundException('Tablet not found');
+      throw new NotFoundException("Tablet not found");
     }
 
     return tablet;

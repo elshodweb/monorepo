@@ -1,10 +1,11 @@
 import { Module, Global } from "@nestjs/common";
 import { ConfigService } from "./config.service";
-import Config from "@nestjs/config";
+import { ConfigModule as NestConfigModule } from "@nestjs/config";  // ✅ Правильный импорт
+
 @Global()
 @Module({
   imports: [
-    Config.ConfigModule.forRoot({
+    NestConfigModule.forRoot({  // ✅ Используйте NestConfigModule
       isGlobal: true,
     }),
   ],

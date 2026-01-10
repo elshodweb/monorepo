@@ -14,11 +14,23 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('restaurants', 'Restaurant management endpoints')
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  
+  // ✅ Добавьте настройки для статических файлов
+  SwaggerModule.setup('docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customCssUrl: 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css',
+    customJs: [
+      'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js',
+      'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-standalone-preset.js',
+    ],
+  });
 
   await app.listen(3000);
   console.log('Cloud API is running on http://localhost:3000');
-  console.log('Swagger documentation available at http://localhost:3000/api/docs');
+  console.log('Swagger documentation available at http://localhost:3000/docs');
 }
 bootstrap();
