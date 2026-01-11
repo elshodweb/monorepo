@@ -26,7 +26,7 @@ export class TabletsController {
   }
 
   @Get()
-  @UseGuards(TabletSignatureGuard)
+  // @UseGuards(TabletSignatureGuard)
   @ApiOperation({ summary: 'Get all tablets' })
   @ApiResponse({ status: 200, description: 'List of tablets' })
   @ApiResponse({ status: 401, description: 'Unauthorized - Invalid signature' })
@@ -36,7 +36,7 @@ export class TabletsController {
   }
 
   @Get(':id')
-  @UseGuards(TabletSignatureGuard)
+  // @UseGuards(TabletSignatureGuard)
   @ApiOperation({ summary: 'Get tablet by ID' })
   @ApiParam({ name: 'id', description: 'Tablet ID' })
   @ApiResponse({ status: 200, description: 'Tablet details' })

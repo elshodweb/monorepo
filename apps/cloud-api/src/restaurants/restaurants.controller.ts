@@ -33,7 +33,7 @@ export class RestaurantsController {
   }
 
   @Get()
-  @UseGuards(SignatureGuard)
+  // @UseGuards(SignatureGuard)
   @ApiOperation({ summary: 'Get all restaurants' })
   @ApiResponse({ status: 200, description: 'List of restaurants' })
   @ApiResponse({ status: 401, description: 'Unauthorized - Invalid signature' })
@@ -43,7 +43,7 @@ export class RestaurantsController {
   }
 
   @Get(':id')
-  @UseGuards(SignatureGuard)
+  // @UseGuards(SignatureGuard)
   @ApiOperation({ summary: 'Get restaurant by ID' })
   @ApiParam({ name: 'id', description: 'Restaurant ID' })
   @ApiResponse({ status: 200, description: 'Restaurant details' })
