@@ -2,6 +2,8 @@
 
 ## Quick Start
 
+## !!! Some guards (for example, @UseGuards(SignatureGuard)) are commented out to allow Swagger to work correctly.
+
 ### 1. Install Dependencies
 
 ```bash
