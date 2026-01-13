@@ -4,7 +4,7 @@ import { SetupController } from "./setup.controller";
 import { PrismaModule } from "../prisma/prisma.module";
 
 @Module({
-  imports: [PrismaModule],  // ✅ Только PrismaModule (ConfigModule уже глобальный)
+  imports: [PrismaModule],
   controllers: [SetupController],
   providers: [SetupService],
 })
