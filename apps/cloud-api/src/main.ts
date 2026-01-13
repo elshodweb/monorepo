@@ -17,7 +17,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   
-  // ✅ Добавьте настройки для статических файлов
   SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
